@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-editor {
+  background-color: #eeeeee;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.nav-editor-input {
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-editor-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
