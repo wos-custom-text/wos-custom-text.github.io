@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terrible whiteout survival text generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="nav-editor">
+    <h2>Terrible Whiteout Survival Text Generator</h2>
+    
+    <textarea class="nav-editor-input" id="inputText" rows="4" placeholder="Enter your text here..."></textarea>
+    
+    <div class="nav-editor-controls">
+        <label><input type="checkbox" id="enableFontSize"> Font Size</label>
+        <input type="number" id="fontSize" placeholder="12" min="1" step="1" value="20">
+        
+        <label><input type="checkbox" id="enableColor"> Color</label>
+        <input type="color" id="colorPicker">
+        
+        <label><input type="checkbox" id="bold"> Bold</label>
+        <label><input type="checkbox" id="italic"> Italic</label>
+    </div>
+
+    <p>Custom text only works when you mention someone.</p>
+    
+    <button class="nav-editor-copy" onclick="copyToClipboard()">Copy</button>
+  </div>
+
+  <script>
+    var styledText = "";
+
+    function updateStyledText() {
+      const inputText = document.getElementById("inputText").value;
+      const fontSizeInput = document.getElementById("fontSize");
+      const enableFontSize = document.getElementById("enableFontSize").checked;
+      const enableColor = document.getElementById("enableColor").checked;
+      const colorPicker = document.getElementById("colorPicker");
+      const isBold = document.getElementById("bold").checked;
+      const isItalic = document.getElementById("italic").checked;
+  
+      styledText = inputText;
+
+      if (enableFontSize) {
+        const fontSize = fontSizeInput.value || 12;
+        styledText = `<ųũźť=${fontSize}>${styledText}</ųũźť>`;
+        fontSizeInput.classList.remove("nav-editor-disabled");
+      } else {
+        fontSizeInput.classList.add("nav-editor-disabled");
+      }
+  
+      if (enableColor) {
+        const color = colorPicker.value;
+        styledText = `<color=${color}>${styledText}</color>`;
+        colorPicker.classList.remove("nav-editor-disabled");
+      } else {
+        colorPicker.classList.add("nav-editor-disabled");
+      }
+  
+      if (isBold) styledText = `<b>${styledText}</b>`;
+      if (isItalic) styledText = `<i>${styledText}</i>`;
+    }
+  
+    function copyToClipboard() {
+      navigator.clipboard.writeText(styledText).then(() => {}).catch(err => {});
+    }
+  
+    document.getElementById("inputText").addEventListener("input", updateStyledText);
+    document.getElementById("fontSize").addEventListener("input", updateStyledText);
+    document.getElementById("enableFontSize").addEventListener("change", updateStyledText);
+    document.getElementById("colorPicker").addEventListener("input", updateStyledText);
+    document.getElementById("enableColor").addEventListener("change", updateStyledText);
+    document.getElementById("bold").addEventListener("change", updateStyledText);
+    document.getElementById("italic").addEventListener("change", updateStyledText);
+  
+    updateStyledText();
+  </script>  
+</body>
+</html>
